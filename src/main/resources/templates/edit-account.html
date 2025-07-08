@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактировать счет</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+
+<h1>Редактировать счет</h1>
+
+<form th:action="@{/account/update}" th:object="${account}" method="post">
+    <input type="hidden" th:field="*{id}"/>
+
+    <label>Валюта:</label>
+    <input type="text" th:field="*{currency}" required/><br><br>
+
+    <label>Баланс:</label>
+    <input type="number" step="0.01" th:field="*{balance}" required/><br><br>
+
+    <button type="submit" class="save-button">Сохранить изменения</button>
+
+    <a href="/my-accounts" class="back-button">Назад</a>
+</form>
+
+</body>
+</html>

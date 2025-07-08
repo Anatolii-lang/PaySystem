@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Счета пользователя</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="/css/navbar.css">
+  <style>
+    .back-button {
+        margin-top: 20px;
+        padding: 8px 16px;
+        background-color: #4CAF50;
+        color: white;
+        text-decoration: none;
+        border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Счета пользователя: <span th:text="${user.username}"></span></h1>
+
+<!-- Проверяем, есть ли счета -->
+<div th:if="${#lists.isEmpty(bills)}">
+  <p>У данного пользователя нет счетов за услуги.</p>
+</div>
+
+<!-- Если счета есть, отображаем их в таблице -->
+<div th:if="${!#lists.isEmpty(bills)}">
+  <table>
+    <thead>
+    <tr>
+      <th>Услуга</th>
+      <th>Сумма</th>
+      <th>Период</th>
+      <th>Статус</th>
+      <th>Дата создания</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="bill : ${bills}">
+      <td th:text="${bill.service}">Услуга</td>
+      <td th:text="${bill.amount}">Сумма</td>
+      <td th:text="${#temporals.format(bill.periodStart, 'yyyy-MM-dd')} + ' - ' + ${#temporals.format(bill.periodEnd, 'yyyy-MM-dd')}">Период</td>
+      <td th:text="${bill.paid ? 'Оплачен' : 'Не оплачен'}">Статус</td>
+      <td th:text="${#temporals.format(bill.createdAt, 'yyyy-MM-dd HH:mm:ss')}">Дата создания</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Кнопка назад на панель администратора -->
+<a href="/admin-page" class="back-button">Назад на панель администратора</a>
+
+</body>
+</html>

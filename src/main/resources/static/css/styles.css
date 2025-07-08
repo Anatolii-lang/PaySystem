@@ -1,0 +1,106 @@
+/* Общие стили для страницы */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #f2f2f2;
+}
+
+/* Основной контент страницы */
+.main-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: calc(100vh - 60px); /* вычитаем высоту navbar */
+}
+
+h1 {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+p {
+    font-size: 1.2em;
+    margin-bottom: 30px;
+}
+
+.button-group {
+    display: flex;
+    gap: 20px;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+
+/* Основной стиль для таблиц */
+table {
+    width: 100%;
+    border-collapse: collapse; /* Убирает лишние промежутки между ячейками */
+    margin: 20px 0; /* Отступ сверху и снизу */
+    font-family: 'Arial', sans-serif; /* Шрифт для таблицы */
+}
+
+/* Заголовки таблиц */
+th {
+    background-color: #4CAF50; /* Зеленый фон для заголовков */
+    color: white; /* Белый цвет текста */
+    padding: 12px 15px; /* Отступы внутри ячеек */
+    text-align: left; /* Выравнивание текста по левому краю */
+    font-weight: bold; /* Жирное начертание текста */
+}
+
+/* Ячейки таблицы */
+td {
+    padding: 12px 15px; /* Отступы внутри ячеек */
+    border-bottom: 1px solid #ddd; /* Легкая линия между строками */
+    text-align: left; /* Выравнивание текста по левому краю */
+}
+
+/* Чередование цветов строк для лучшего восприятия */
+tr:nth-child(even) {
+    background-color: #f9f9f9; /* Светлый фон для четных строк */
+}
+
+tr:nth-child(odd) {
+    background-color: #ffffff; /* Белый фон для нечетных строк */
+}
+
+/* При наведении на строку меняется фон */
+tr:hover {
+    background-color: #f1f1f1; /* Светлый цвет фона при наведении */
+}
+
+/* Стилизация кнопок и ссылок в таблице */
+a {
+    color: #4CAF50; /* Зеленый цвет для ссылок */
+    text-decoration: none; /* Убираем подчеркивание */
+    font-weight: bold; /* Жирное начертание текста */
+}
+
+a:hover {
+    color: #45a049; /* Темнее зеленый при наведении на ссылку */
+}
+
+/* Стилизация таблицы на маленьких экранах */
+@media screen and (max-width: 600px) {
+    table {
+        width: 100%;
+        font-size: 12px; /* Уменьшаем размер шрифта на маленьких экранах */
+    }
+
+    th, td {
+        padding: 8px 10px; /* Уменьшаем отступы для маленьких экранов */
+    }
+}

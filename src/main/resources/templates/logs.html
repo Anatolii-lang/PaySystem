@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Logs</title>
+</head>
+<body>
+<h1>Log Viewer</h1>
+
+<!-- Форма фильтрации -->
+<form action="/view-logs" method="get">
+    <label for="level">Log Level:</label>
+    <select name="level" id="level">
+        <option value="">All</option>
+        <option value="INFO" th:selected="${level == 'INFO'}">INFO</option>
+        <option value="ERROR" th:selected="${level == 'ERROR'}">ERROR</option>
+        <option value="DEBUG" th:selected="${level == 'DEBUG'}">DEBUG</option>
+    </select>
+
+    <label for="start">Start Date (YYYY-MM-DD HH:MM:SS):</label>
+    <input type="text" name="start" id="start" value="${start}">
+
+    <label for="end">End Date (YYYY-MM-DD HH:MM:SS):</label>
+    <input type="text" name="end" id="end" value="${end}">
+
+    <button type="submit">Apply Filters</button>
+</form>
+
+<h2>Logs</h2>
+<table border="1">
+    <thead>
+    <tr>
+        <th>Log Entry</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="log : ${logs}">
+        <td th:text="${log}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

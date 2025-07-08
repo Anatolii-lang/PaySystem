@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Мои счета за услуги</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="/css/navbar.css">
+</head>
+<body>
+<div th:replace="~{fragments/navbar :: navbar}"></div> <!-- Навигационная панель -->
+
+<h1>Мои счета</h1>
+
+<!-- Проверка, есть ли счета -->
+<div th:if="${#lists.isEmpty(bills)}">
+  <p>У вас нет активных счетов.</p>
+</div>
+
+<!-- Если счета есть, отображаем таблицу -->
+<div th:unless="${#lists.isEmpty(bills)}">
+  <table>
+    <thead>
+    <tr>
+      <th>ID счета</th>
+      <th>Услуга</th>
+      <th>Сумма</th>
+      <th>Дата начала</th>
+      <th>Дата окончания</th>
+      <th>Статус оплаты</th>
+      <th>Действия</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="bill : ${bills}">
+      <td th:text="${bill.id}"></td>
+      <td th:text="${bill.service}"></td>
+      <td th:text="${bill.amount}"></td>
+      <td th:text="${#temporals.format(bill.periodStart, 'yyyy-MM-dd')}"></td>
+      <td th:text="${#temporals.format(bill.periodEnd, 'yyyy-MM-dd')}"></td>
+      <td th:text="${bill.paid ? 'Оплачено' : 'Не оплачено'}"></td>
+      <td>
+        <!-- Кнопка оплаты, если счет не оплачен -->
+        <div th:if="${!bill.paid}">
+          <a th:href="@{/payment/pay-bill/{billId}(billId=${bill.id})}" class="pay-button">Оплатить</a>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<a href="/profile" class="back-button">Назад</a>
+
+</body>
+</html>

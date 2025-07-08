@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Оплата счета</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="/css/navbar.css">
+</head>
+<body>
+
+<!-- Включаем навигационную панель -->
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<h1>Оплата счета</h1>
+
+<!-- Форма для оплаты счета -->
+<form th:action="@{/payment/pay-bill/{billId}(billId=${bill.id})}" method="post">
+  <table>
+    <tr>
+      <th>Услуга:</th>
+      <td th:text="${bill.service}"></td>
+    </tr>
+    <tr>
+      <th>Сумма:</th>
+      <td th:text="${bill.amount}"></td>
+    </tr>
+    <tr>
+      <th>Дата начала:</th>
+      <td th:text="${#temporals.format(bill.periodStart, 'yyyy-MM-dd')}"></td>
+    </tr>
+    <tr>
+      <th>Дата окончания:</th>
+      <td th:text="${#temporals.format(bill.periodEnd, 'yyyy-MM-dd')}"></td>
+    </tr>
+    <tr>
+      <th>Статус:</th>
+      <td th:text="${bill.paid ? 'Оплачено' : 'Не оплачено'}"></td>
+    </tr>
+  </table>
+
+  <!-- Теперь это ВНУТРИ формы -->
+  <div>
+    <label for="account">Выберите счет для списания:</label>
+    <select name="accountId" id="account" required>
+      <option value="" disabled selected>Выберите счет</option>
+      <option th:each="account : ${accounts}"
+              th:value="${account.id}"
+              th:text="${account.accountNumber}"></option>
+    </select>
+  </div>
+
+  <div th:if="${!bill.paid}">
+    <button type="submit" class="pay-button">Оплатить</button>
+  </div>
+  <div th:if="${bill.paid}">
+    <p>Этот счет уже был оплачен.</p>
+  </div>
+</form>
+
+<!-- Это уже за пределами формы -->
+<a href="/payment/my-bills" class="back-button">Назад</a>
+
+
+
+</body>
+</html>

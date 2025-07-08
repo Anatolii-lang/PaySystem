@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Navbar фрагмент</title>
+    <link rel="stylesheet" href="/css/navbar.css">
+</head>
+<body>
+
+<div th:fragment="navbar">
+    <div class="navbar-wrapper">
+        <div class="navbar">
+            <!-- Левая навигация -->
+            <div class="nav-left">
+                <a href="/home" class="nav-button">Главная</a>
+                <a href="/my-accounts" class="nav-button">Мои счета</a>
+                <a href="/add-account" class="nav-button">Добавить счет</a>
+
+                <!-- Платежи: выпадающее меню -->
+                <div class="dropdown">
+                    <a href="#" class="nav-button">Платежи</a>
+                    <div class="dropdown-content">
+                        <a href="/payment/my-bills">Мои счета за услуги</a>
+                        <a href="/payment/transfer-money">Перевод денег</a>
+                        <a href="/payment/recharge-account">Пополнение счета</a>
+                    </div>
+                </div>
+
+                <!-- Ссылка на админскую панель доступна только для администраторов -->
+            </div>
+
+            <!-- Правая навигация -->
+            <div class="nav-right">
+                <div th:if="${username}">
+                    <!-- Кружок пользователя и выпадающее меню -->
+                    <div class="dropdown">
+                        <div class="user-circle" id="userCircle" title="[[${username}]]"
+                             th:text="${#strings.substring(username, 0, 1)}">U</div>
+                        <form action="/logout" method="post" style="display: inline;">
+                            <!-- CSRF токен -->
+                            <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+                            <a href="/session/clear-session" class="logout-button">Выйти</a>
+                        </form>
+                    </div>
+                </div>
+
+                <div th:if="${username == null}">
+                    <a href="/login" class="nav-button">Войти</a>
+                    <a href="/register" class="nav-button">Регистрация</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    // Находим элементы для выпадающего меню и пункта "Платежи"
+    const dropdown = document.querySelector('.dropdown');
+    const dropdownContent = document.querySelector('.dropdown-content');
+
+    // Задаем задержку для появления меню
+    let timeout;
+
+    // Показываем меню, когда курсор на "Платежи"
+    dropdown.addEventListener('mouseenter', () => {
+        clearTimeout(timeout);  // Очищаем таймер, если курсор вернулся на "Платежи"
+        dropdownContent.style.display = 'block';  // Показываем меню
+        dropdownContent.style.opacity = '1';  // Делаем меню видимым
+        dropdownContent.style.visibility = 'visible';  // Делаем меню видимым
+    });
+
+    // Скрываем меню, когда курсор уходит с "Платежи"
+    dropdown.addEventListener('mouseleave', () => {
+        timeout = setTimeout(() => {
+            dropdownContent.style.display = 'none';  // Скрываем меню через задержку
+        }, 1000);  // 1 секунда задержки перед исчезновением
+    });
+
+    // Когда курсор на меню, оно остается открытым
+    dropdownContent.addEventListener('mouseenter', () => {
+        clearTimeout(timeout);  // Очищаем таймер при наведении на меню
+    });
+
+    // Когда курсор уходит с меню, оно скрывается через задержку
+    dropdownContent.addEventListener('mouseleave', () => {
+        timeout = setTimeout(() => {
+            dropdownContent.style.display = 'none';  // Скрываем меню
+        }, 1000);  // 1 секунда задержки
+    });
+</script>
+
+
+
+</body>
+</html>

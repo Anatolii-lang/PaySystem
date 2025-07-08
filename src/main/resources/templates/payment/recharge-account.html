@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Пополнение счета</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="/css/navbar.css">
+</head>
+<body>
+
+<!-- Верхнее меню -->
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<div class="main-content">
+  <h1>Пополнение счета</h1>
+
+  <!-- Сообщение об ошибке -->
+  <div th:if="${error}" style="color: red; margin-bottom: 15px;">
+    <p th:text="${error}"></p>
+  </div>
+
+  <!-- Сообщение об успешной операции -->
+  <div th:if="${success}" style="color: green; margin-bottom: 15px;">
+    <p th:text="${success}"></p>
+  </div>
+
+  <!-- Форма пополнения -->
+  <form th:action="@{/payment/recharge-account}" method="post">
+
+    <label for="accountId">Номер счета:</label><br>
+    <input type="number" id="accountId" name="accountId" required><br><br>
+
+    <label for="amount">Сумма пополнения:</label><br>
+    <input type="number" id="amount" name="amount" step="0.01" required><br><br>
+
+    <button type="submit">Пополнить</button>
+  </form>
+</div>
+
+</body>
+</html>

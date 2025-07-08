@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Главная страница</title>
+    <!-- Подключаем общий CSS для сайта -->
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/navbar.css">
+</head>
+<body>
+
+<!-- Включаем фрагмент navbar -->
+<div th:replace="fragments/navbar :: navbar"></div>
+
+<h1>Добро пожаловать на главную страницу!</h1>
+<div class="container">
+
+    <!-- Если у пользователя нет прав администратора, отображаем сообщение -->
+    <div th:if="${message}">
+        <p th:text="${message}" class="error-message"></p>
+    </div>
+</div>
+
+</body>
+</html>

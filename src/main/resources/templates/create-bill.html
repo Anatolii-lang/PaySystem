@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Выставить счет</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="/css/navbar.css">
+  <style>
+    .back-button {
+        margin-top: 20px;
+        display: inline-block;
+        padding: 8px 16px;
+        background-color: #4CAF50;
+        color: white;
+        text-decoration: none;
+        border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Верхняя панель -->
+
+<h1>Выставить счет для пользователя</h1>
+
+<!-- Вывод ошибки, если есть -->
+<div th:if="${error}" style="color: red;">
+  <p th:text="${error}"></p>
+</div>
+
+<!-- Форма для создания счета -->
+<form th:action="@{/admin-page/create-bill}" method="post">
+  <!-- Скрытое поле для передачи userId -->
+  <input type="hidden" name="userId" th:value="${user.id}">
+
+  <div>
+    <label for="service">Услуга:</label><br>
+    <input type="text" id="service" name="service" required><br><br>
+  </div>
+
+  <div>
+    <label for="amount">Сумма:</label><br>
+    <input type="number" id="amount" name="amount" step="0.01" required><br><br>
+  </div>
+
+  <div>
+    <label for="periodStart">Дата начала:</label><br>
+    <input type="date" id="periodStart" name="periodStart" required><br><br>
+  </div>
+
+  <div>
+    <label for="periodEnd">Дата окончания:</label><br>
+    <input type="date" id="periodEnd" name="periodEnd" required><br><br>
+  </div>
+
+  <button type="submit">Выставить счет</button>
+</form>
+
+<!-- Кнопка "Назад" -->
+<a href="/admin-page" class="back-button">Назад к админ панели</a>
+
+</body>
+</html>

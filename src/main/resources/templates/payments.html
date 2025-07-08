@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Платежи</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="/css/navbar.css">
+</head>
+<body>
+
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<h1>Платежи</h1>
+
+<div class="button-group">
+  <a href="/payments/recharge" class="button">Пополнить счет</a>
+  <a href="/payments/transfer" class="button">Перевести средства</a>
+  <a href="/payments/pay" class="button">Оплатить товар/услугу</a>
+  <a href="/payments/withdraw" class="button">Вывести средства</a>
+</div>
+
+</body>
+</html>

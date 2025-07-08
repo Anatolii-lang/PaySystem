@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Мои счета</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/navbar.css">
+</head>
+<body>
+
+<!-- Включаем верхнюю панель -->
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<h1>Мои счета</h1>
+
+<div th:if="${accounts.isEmpty()}">
+    <p>У вас нет активных счетов.</p>
+</div>
+
+<div th:if="${not accounts.isEmpty()}">
+    <table>
+        <thead>
+        <tr>
+            <th>№</th>
+            <th>Номер счета</th>
+            <th>Валюта</th>
+            <th>Баланс</th>
+            <th>Дата создания</th>
+            <th>Дата обновления</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="account, iterStat : ${accounts}">
+            <td th:text="${iterStat.index + 1}"></td>
+            <td th:text="${account.accountNumber}"></td>
+            <td th:text="${account.currency}"></td>
+            <td th:text="${account.balance}"></td>
+            <td th:text="${#temporals.format(account.createdAt, 'yyyy-MM-dd HH:mm:ss')}"></td>
+            <td th:text="${#temporals.format(account.updatedAt, 'yyyy-MM-dd HH:mm:ss')}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+
+</body>
+</html>
